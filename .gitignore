@@ -1,0 +1,6 @@
+.env
+journal_trading.csv
+__pycache__/
+*.pyc
+.venv/
+venv/

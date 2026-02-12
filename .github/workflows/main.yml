@@ -1,0 +1,35 @@
+# Surveillance BTC/USDT (4H) - exécution automatique toutes les heures
+# Les secrets (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) doivent être configurés dans le repo GitHub.
+# Si le dépôt contient BotTrading en sous-dossier : ajouter "defaults: run: working-directory: BotTrading"
+# au niveau du job et conserver "python btc_surveillance.py --once".
+name: BTC Surveillance
+
+on:
+  schedule:
+    # Toutes les 4 heures à la minute 0 (UTC)
+    - cron: "0 */4 * * *"
+  workflow_dispatch:
+    # Permet de lancer le workflow manuellement depuis l'onglet Actions
+
+jobs:
+  run-surveillance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run surveillance (one cycle)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python btc_surveillance.py --once
