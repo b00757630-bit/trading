@@ -5,7 +5,7 @@ name: BTC & ETH Surveillance
 on:
   schedule:
     # Toutes les 4 heures à la minute 0 (UTC)
-    - cron: "14 21 * * *"
+    - cron: "15 21 * * *"
   workflow_dispatch:
     # Permet de lancer le workflow manuellement depuis l'onglet Actions
 
