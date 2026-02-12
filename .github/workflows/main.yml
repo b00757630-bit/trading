@@ -1,8 +1,6 @@
-# Surveillance BTC/USDT (4H) - exécution automatique toutes les heures
+# Surveillance BTC/USDT et ETH/USDT (4H) - exécution automatique toutes les 4 h
 # Les secrets (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) doivent être configurés dans le repo GitHub.
-# Si le dépôt contient BotTrading en sous-dossier : ajouter "defaults: run: working-directory: BotTrading"
-# au niveau du job et conserver "python btc_surveillance.py --once".
-name: BTC Surveillance
+name: BTC & ETH Surveillance
 
 on:
   schedule:
@@ -28,12 +26,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run surveillance (one cycle)
+      - name: Run BTC surveillance (one cycle)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Variables optionnelles : Settings → Secrets and variables → Actions → Variables
-          # Défauts : 500 et 0.01 si non renseignées
           CAPITAL_EUR: ${{ vars.CAPITAL_EUR != '' && vars.CAPITAL_EUR || '500' }}
           RISQUE_POURCENT: ${{ vars.RISQUE_POURCENT != '' && vars.RISQUE_POURCENT || '0.01' }}
         run: python btc_surveillance.py --once
+
+      - name: Run ETH surveillance (one cycle)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CAPITAL_EUR: ${{ vars.CAPITAL_EUR != '' && vars.CAPITAL_EUR || '500' }}
+          RISQUE_POURCENT: ${{ vars.RISQUE_POURCENT != '' && vars.RISQUE_POURCENT || '0.01' }}
+        run: python eth_surveillance.py --once
