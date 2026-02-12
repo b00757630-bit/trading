@@ -102,7 +102,7 @@ Le workflow `.github/workflows/main.yml` exécute **une fois par heure** (cron) 
 
 ### Ajouter les secrets dans le dépôt GitHub
 
-Pour que les notifications Telegram fonctionnent en CI, enregistre les variables en tant que **secrets** du dépôt (elles ne sont jamais affichées ni loguées) :
+Pour que les notifications Telegram fonctionnent en CI, enregistre les variables en tant que **secrets** du dépôt (elles ne sont jamais affichées ni loguées) :   
 
 1. Ouvre ton dépôt sur **GitHub**.
 2. Va dans **Settings** (Paramètres) du dépôt.

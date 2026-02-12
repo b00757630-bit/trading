@@ -40,7 +40,7 @@ LOOKBACK_4H = 120
 LOOKBACK_1D = 250
 
 # Gestion du risque (1% de 5000€ = 50€) — surchargeables par variables d'environnement
-CAPITAL_EUR = int(os.getenv("CAPITAL_EUR", "5000"))
+CAPITAL_EUR = int(os.getenv("CAPITAL_EUR", "500"))
 RISQUE_POURCENT = float(os.getenv("RISQUE_POURCENT", "0.01"))
 _default_risque = int(CAPITAL_EUR * RISQUE_POURCENT)
 RISQUE_EUROS = int(os.getenv("RISQUE_EUROS", str(_default_risque)))
