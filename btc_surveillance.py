@@ -72,7 +72,7 @@ logger = logging.getLogger(__name__)
 
 def get_exchange() -> ccxt.Exchange:
     """Retourne une instance CCXT Binance (API publique, pas de clés)."""
-    exchange = ccxt.binance({"options": {"defaultType": "spot"}})
+    exchange = ccxt.bybit({"options": {"defaultType": "spot"}})
     exchange.load_markets()
     return exchange
 
@@ -391,14 +391,14 @@ def main_loop(interval_seconds: int = 4 * 3600) -> None:
     Boucle principale : exécution toutes les 4 heures.
     Gestion des exceptions pour éviter l'arrêt en cas de coupure internet ou erreur API.
     """
-    logger.info("Démarrage surveillance BTC/USDT (4H) - intervalle %s s", interval_seconds)
-    while True:
-        try:
-            run_cycle()
-        except Exception as e:
-            logger.exception("Erreur dans le cycle (script continue): %s", e)
-        logger.info("Prochaine exécution dans %d secondes", interval_seconds)
-        time.sleep(interval_seconds)
+    # logger.info("Démarrage surveillance BTC/USDT (4H) - intervalle %s s", interval_seconds)
+    # while True:
+    try:
+        run_cycle()
+    except Exception as e:
+        logger.exception("Erreur dans le cycle (script continue): %s", e)
+    # logger.info("Prochaine exécution dans %d secondes", interval_seconds)
+        # time.sleep(interval_seconds)
 
 
 if __name__ == "__main__":
