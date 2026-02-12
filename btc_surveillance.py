@@ -72,7 +72,7 @@ logger = logging.getLogger(__name__)
 
 def get_exchange() -> ccxt.Exchange:
     """Retourne une instance CCXT Binance (API publique, pas de clés)."""
-    exchange = ccxt.bybit({"options": {"defaultType": "spot"}})
+    exchange = ccxt.gateio({"options": {"defaultType": "spot"}})
     exchange.load_markets()
     return exchange
 
