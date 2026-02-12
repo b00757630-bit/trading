@@ -32,4 +32,8 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Variables optionnelles : Settings → Secrets and variables → Actions → Variables
+          # Défauts : 500 et 0.01 si non renseignées
+          CAPITAL_EUR: ${{ vars.CAPITAL_EUR != '' && vars.CAPITAL_EUR || '500' }}
+          RISQUE_POURCENT: ${{ vars.RISQUE_POURCENT != '' && vars.RISQUE_POURCENT || '0.01' }}
         run: python btc_surveillance.py --once
