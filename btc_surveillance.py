@@ -165,10 +165,10 @@ def check_signal(
         logger.info("Pas de signal: close %.2f <= EMA50 %.2f", close, ema50)
         return False
 
-    # Crossover RSI au-dessus de 45
-    constant_45 = pd.Series(RSI_CROSS_LEVEL, index=df_4h.index)
-    rsi_cross = ta.crossover(df_4h["rsi"], constant_45)
-    crossover_ok = pd.notna(rsi_cross.iloc[-1]) and rsi_cross.iloc[-1] is True
+    # Crossover RSI au-dessus de 45 (précédent < 45 et actuel > 45)
+    rsi_prev = df_4h["rsi"].shift(1)
+    rsi_cross = (rsi_prev < RSI_CROSS_LEVEL) & (df_4h["rsi"] > RSI_CROSS_LEVEL)
+    crossover_ok = bool(rsi_cross.iloc[-1]) if pd.notna(rsi_cross.iloc[-1]) else False
     if not crossover_ok:
         logger.info("Pas de signal: pas de crossover RSI > 45 (RSI=%.1f)", last["rsi"])
         return False
